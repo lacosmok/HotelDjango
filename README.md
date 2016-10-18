@@ -59,7 +59,7 @@ W tym etapie przygotujecie sobie projekt oraz zaimplementujecie sobie modele apl
 
 Poniższy obraz przedstawia minimalny ERD (Entity relationship diagram) obrazujący jakie modele musicie zaimplementować oraz typy relacji pomiędzy nimi.
 
-[Hotel minimal ERD](/images/hotel_minimal_erd.png)
+![Hotel minimal ERD](../images/hotel_minimal_erd.png)
 
 ### Wymagania panelu administratora:
 
