@@ -75,10 +75,6 @@ W tym etapie przygotujecie widoki w django oraz templaty dla widoków.
 ### Tutoriale dla tego etapu:
 
 1. [HTML + CSS](https://www.udemy.com/html5-and-css3-just-do-it/learn/v4/content)
-2. ...
-3. ...
-
-
 
 # 4. Etap - JS + JQuery: 10 dni
 
