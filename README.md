@@ -4,7 +4,7 @@ W tym projekcie chodzi o to byście zapoznali się z wieloma zagadnieniami, któ
 
 Zadanie zostało podzielone na etapy tematyczne żebyście mogli zaraz po zdobyciu wiedzy wykonać określoną część projektu. 
 
-### Etapy ptojektu:
+### Etapy projektu:
 
 1. GIT
 2. Django
@@ -13,7 +13,7 @@ Zadanie zostało podzielone na etapy tematyczne żebyście mogli zaraz po zdobyc
 
 Czas potrzebny na wykonanie projektu został oszacowany na około 1 miesiąca (przy uwzględnieniu czasu potrzebnego na zapoznanie się z tutorialami oraz wykonanie zadań).
 
-# Opis zadnia
+# Opis zadania
 
 Aplikacja ma umożliwiać
 
@@ -39,7 +39,7 @@ Przedstawimy wam workflow panujący w naszym repozytorium.
 
 1. Wstępne szkolenie z git'a.
 2. Utworzenie kont na gitcie oraz slacku.
-3. Wukonanie przydzielonych zadań do wykonania na gitcie.
+3. Wykonanie przydzielonych zadań do wykonania na gitcie.
 
 # 2. Etap - Django: 4.5 dnia
 
