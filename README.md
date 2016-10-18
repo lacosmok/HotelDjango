@@ -63,7 +63,10 @@ PoniÅ¼szy obraz przedstawia minimalny ERD (Entity relationship diagram) obrazujÄ
 
 ### Wymagania panelu administratora:
 
-...
+1. Fieldsets
+2. Inlines (TabularInline)
+3. List filters
+4. Search fields
 
 # 3. Etap - HTML + CSS: 5 dni
 
