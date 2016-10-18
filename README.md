@@ -47,13 +47,13 @@ W tym etapie przygotujecie sobie projekt oraz zaimplementujecie sobie modele apl
 
 ### Tutoriale dla tego etapu:
 
-1. [Django tutorial part 1](https://docs.djangoproject.com/en/1.10/intro/tutorial01/)
-2. [Django tutorial part 2](https://docs.djangoproject.com/en/1.10/intro/tutorial02/)
-3. [Django tutorial part 3](https://docs.djangoproject.com/en/1.10/intro/tutorial03/)
-4. [Django tutorial part 4](https://docs.djangoproject.com/en/1.10/intro/tutorial04/)
-5. [Django tutorial part 5](https://docs.djangoproject.com/en/1.10/intro/tutorial05/)
-6. [Django tutorial part 6](https://docs.djangoproject.com/en/1.10/intro/tutorial06/)
-7. [Django tutorial part 7](https://docs.djangoproject.com/en/1.10/intro/tutorial07/)
+1. [Django tutorial part 1 - Request and Responses](https://docs.djangoproject.com/en/1.10/intro/tutorial01/)
+2. [Django tutorial part 2 - Models and admin site](https://docs.djangoproject.com/en/1.10/intro/tutorial02/)
+3. [Django tutorial part 3 - Views and templates](https://docs.djangoproject.com/en/1.10/intro/tutorial03/)
+4. [Django tutorial part 4 - Forms and generic views](https://docs.djangoproject.com/en/1.10/intro/tutorial04/)
+5. [Django tutorial part 5 - Testing](https://docs.djangoproject.com/en/1.10/intro/tutorial05/)
+6. [Django tutorial part 6 - Static files](https://docs.djangoproject.com/en/1.10/intro/tutorial06/)
+7. [Django tutorial part 7 - Customizing the admin site](https://docs.djangoproject.com/en/1.10/intro/tutorial07/)
 
 ### Wymagania modeli:
 
