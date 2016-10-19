@@ -61,6 +61,9 @@ Poniższy obraz przedstawia minimalny ERD (Entity relationship diagram) obrazuj�
 
 ![Hotel minimal ERD](../images/hotel_minimal_erd.png)
 
+Dodam jeszcze, że relacja pomiędzy modelem User a Room jest typu wiele do wiele (MtM- many to many) i model Reservation jest modelem pośredniczącym w relacji 
+(przechowywującym dodatkowe dane powiązane z relacją. W django jest to rozwiązywane za pomocą parametru ```through``` relacji many to many).
+
 ### Wymagania panelu administratora:
 
 1. Fieldsets
