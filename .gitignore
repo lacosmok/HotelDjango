@@ -4,5 +4,6 @@ hotel/.idea/**
 .idea/**
 db.sqlite3
 tmp
+hotel/potrzebuje.txt
 
 
