@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.HotelListView.as_view(), name='index'),
+    url(r'^$', views.UserFormView.as_view(), name='register-user'),
 ]

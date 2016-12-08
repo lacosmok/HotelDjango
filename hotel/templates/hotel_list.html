@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover" >
+                <thead>
+                <tr>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    {% for hotel in hotel_list %}
+                                <td>
+                                <h1>{{ hotel.name }}</h1>
+                            </td>
+                    </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

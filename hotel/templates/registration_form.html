@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row">
+        <form id="product-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{form}}
+
+            <div class="form-group text-right">
+
+                <button class="btn btn-info" type="submit" value="save" name="save" >Create user</button>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}html>

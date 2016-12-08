@@ -12,39 +12,32 @@ class Reservation(models.Model):
 
 
 class Profile(models.Model):
-    id_profile = models.IntegerField(default=0, primary_key=True,
-                                     verbose_name="room id")
-
-    def __str__(self):
-        return self.id_profile
+    pass
 
 
 class Addres(models.Model):
-    id_addres = models.IntegerField(default=0, verbose_name="Addres id")
+    street = models.CharField(max_length=60, default='', blank=True, null=True)
+    nr = models.IntegerField(default=0, verbose_name="number")
+    city = models.CharField(max_length=60, default='', blank=True, null=True)
 
     def __str__(self):
-        return self.id_addres
+        return "{} {} nr. {}".format(self.city, self.street, self.nr)
 
 
 class Telephone(models.Model):
-    id_telephone = models.IntegerField(default=0,
+    telephone_nr = models.IntegerField(default=0,
                                        verbose_name="telephone number")
-
-    def __str__(self):
-        return self.id_telephone
 
 
 class Hotel(models.Model):
-    id_hotel = models.IntegerField(default=0, verbose_name="hotel id")
+    name = models.CharField(max_length=60, default='', blank=True, null=True)
 
     def __str__(self):
-        return self.id_hotel
-
+        return self.name
 
 class Room(models.Model):
-    id_room = models.IntegerField(default=0, verbose_name="room id")
-    id_hotel = models.ForeignKey(Hotel, null=True, blank=True,
-                                 verbose_name="hotel id")
+    hotel = models.ForeignKey(Hotel, null=True, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=60, default='', blank=True, null=True)
+    description = models.TextField(default='', blank=True, null=True)
 
-    def __str__(self):
-        return self.id_room
+

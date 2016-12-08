@@ -1,0 +1,46 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	    <title>{{ title }}</title>
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+	</head>
+
+	<body>
+
+	<nav class="navbar navbar-default" style="margin-bottom: 0px;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"><a href="{% url 'register-user'  %}">Register</a></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+
+			</div>
+				<div class="btn-group btn-group-lg btn-group-justified btn-group-fill-height" style="margin-top: 10px" role="group">
+				<a href="{% url 'register-user'  %}" class="btn btn-default" role="button">Register User</a>
+					<a href="{% url 'register-user'  %}" class="btn btn-default" role="button">register now</a>
+			</div>
+		</div>
+	</nav>
+
+	{% block content %}
+	{% endblock %}
+
+
+
+</body>
+
+</html>
