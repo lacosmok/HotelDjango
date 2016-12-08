@@ -1,0 +1,8 @@
+*.pyc
+.DS_Store
+hotel/.idea/**
+.idea/**
+db.sqlite3
+tmp
+
+
