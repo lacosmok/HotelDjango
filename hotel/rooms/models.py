@@ -31,7 +31,7 @@ class Telephone(models.Model):
 
 class Hotel(models.Model):
     name = models.CharField(max_length=60, default='', blank=True, null=True)
-    #address = models.ForeignKey(Addres, null=True, blank=True)
+    address = models.ForeignKey(Addres, null=True, blank=True)
 
     def __str__(self):
         return self.name
