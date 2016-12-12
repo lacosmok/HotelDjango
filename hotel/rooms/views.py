@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from .models import Hotel, Reservation, Room, Profile
 from .forms import UserForm, ReservationForm
+import operator
 
 
 @method_decorator(login_required, name='dispatch')
@@ -93,6 +94,26 @@ class ProfileView(TemplateView):
         context['reservations'] = Reservation.objects.filter(user=self.request.user)
         return context
 
+
 class ReservationDeleteView(DeleteView):
     model = Reservation
     success_url = reverse_lazy('user-profile')
+
+
+class HotelSearchView(HotelListView):
+    model = Hotel
+    template_name = "hotel_list.html"
+
+    def get_queryset(self):
+        result = super(HotelSearchView, self).get_queryset()
+
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Q(name__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(description__icontains=q) for q in query_list))
+            )
+        return result

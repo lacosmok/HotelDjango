@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.HotelListView.as_view(), name='index'),
+    url(r'^$', views.HotelSearchView.as_view(), name='hotel-search'),
     url(r'^hotels/(?P<pk>[0-9]+)/rooms/$',
         views.RoomListView.as_view(), name='room-list'),
     url(r'^rooms/(?P<pk>[0-9]+)/reservation/$',
