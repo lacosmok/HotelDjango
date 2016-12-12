@@ -11,11 +11,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                    {% for hotel in hotel_list %}
+                    {% for room in room_list %}
                                 <td>
-                                <h1>{{ hotel.name }}</h1></br>
-                                {{ hotel.description }} </br>
-                                <a href="{% url 'room-list' hotel.pk  %}" class="btn btn-default" role="button">Rooms</a>
+                                <h1>{{ room.name }}</h1></br>
+                                {{ room.description }} </br>
+                                <a href="{% url 'reservation-create' room.pk  %}" class="btn btn-default" role="button">Make Reservation</a>
                             </td>
                     </tr>
                     {% endfor %}

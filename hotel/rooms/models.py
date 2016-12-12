@@ -30,7 +30,7 @@ class Profile(models.Model):
     telephone = models.ForeignKey(Telephone, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 
 class Hotel(models.Model):
@@ -62,7 +62,7 @@ class Reservation(models.Model):
                              on_delete=models.CASCADE)
     user = models.ForeignKey(User, default=None, null=True, blank=True,
                              on_delete=models.CASCADE)
-    reservation_start = models.DateField(null=False, default=now,
-                                         verbose_name='start of reservation')
-    reservation_finish = models.DateField(null=False, default=now,
-                                          verbose_name='end of reservation')
+    start_date = models.DateField(null=False, default=now,
+                                      verbose_name='start of reservation')
+    end_date = models.DateField(null=False, default=now,
+                                    verbose_name='end of reservation')
