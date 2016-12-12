@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.utils.decorators import method_decorator
+from django.shortcuts import render, redirect
 from .models import Hotel, Reservation
 from .forms import UserForm
-from django.utils.decorators import method_decorator
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+
+
 
 class ReservationCreateView(CreateView):
     model = Reservation
@@ -35,13 +37,14 @@ class HotelListView(ListView):
     def get_queryset(self):
         return self.model.objects.all()
 
+
 class UserFormView(View):
     form_class = UserForm
     template_name = "registration_form.html"
 
     def get(self, request):
         form = self.form_class(None)
-        return render(request, self.template_name, {'form':form})
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
         form = self.form_class(request.POST)
