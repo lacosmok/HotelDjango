@@ -23,12 +23,16 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"><a href="{% url 'register-user'  %}">Register</a></span>
+				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-
+                <span class="navbar-brand" >Hello, {{ request.user.username }}</span>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <a href="{% url 'logout' %}"><button type="button" class="btn btn-default navbar-btn navbar-right"> 'Logout' </button></a>
 			</div>
+			</div>
+
 				<div class="btn-group btn-group-lg btn-group-justified btn-group-fill-height" style="margin-top: 10px" role="group">
 				<a href="{% url 'register-user'  %}" class="btn btn-default" role="button">Register User</a>
 					<a href="{% url 'register-user'  %}" class="btn btn-default" role="button">register now</a>

@@ -1,0 +1,85 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	    <title>{{ title }}</title>
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+	</head>
+
+	<body>
+
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+                <span class="navbar-brand" >Hi</span>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">'Log in'</h3>
+                </div>
+
+                <div class="panel-body">
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="bs-component">
+                            <table>
+                                {% if form.errors %}
+                                <p>'Username and password do not match.' </p>
+                                {% endif %}
+
+                                {% if next %}
+                                    {% if user.is_authenticated %}
+                                        <p>You don't have an access to this part of the portal.</p>
+                                    {% endif %}
+                                {% endif %}
+
+                                <tr>
+                                    <td>{{ form.username.label_tag }}</td>
+                                    <td>{{ form.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ form.password.label_tag }}</td>
+                                    <td>{{ form.password }}</td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div class="bs-component">
+                            <center><input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}" /></center>
+                        </div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </form>
+                </div>
+            </div>
+        <span class="icon-bar"><a href="{% url 'register-user'  %}">Register</a></span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rooms',
+    'login',
     'django_extensions',
     'bootstrapform'
 ]
@@ -102,7 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 

@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, DetailView, View
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 from .models import Hotel, Reservation
 from .forms import UserForm
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
@@ -20,6 +22,8 @@ class ReservationCreateView(CreateView):
         form.save()
         return context
 
+
+@method_decorator(login_required, name='dispatch')
 class HotelListView(ListView):
     model = Hotel
     template_name = "hotel_list.html"
