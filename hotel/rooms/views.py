@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.db.models import Q
 
+
 from .models import Hotel, Reservation, Room, Profile
 from .forms import UserForm, ReservationForm
 
@@ -25,6 +26,11 @@ class ReservationCreateView(CreateView):
         context = super(ReservationCreateView, self).get_context_data(**kwargs)
         context['reservation_create'] = True
         return context
+
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(ReservationCreateView, self).get_form_kwargs()
+        kwargs['room_pk'] = self.kwargs['pk']
+        return kwargs
 
     def form_valid(self, form, **kwargs):
         context = super(ReservationCreateView, self).form_valid(form, **kwargs)

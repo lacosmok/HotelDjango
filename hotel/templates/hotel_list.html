@@ -23,6 +23,7 @@
                     {% for hotel in hotel_list %}
                                 <td>
                                 <h1>{{ hotel.name }}</h1></br>
+
                                 {{ hotel.description }} </br>
                                 <a href="{% url 'room-list' hotel.pk  %}" class="btn btn-default" role="button">Rooms</a>
                             </td>
