@@ -6,8 +6,11 @@ from django.contrib.auth import authenticate, login
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
+from django.db.models import Q
+
 from .models import Hotel, Reservation, Room, Profile
 from .forms import UserForm, ReservationForm
+
 import operator
 
 
@@ -42,7 +45,7 @@ class HotelListView(ListView):
         return context
 
     def get_queryset(self):
-        return self.model.objects.all()
+        return Hotel.objects.all()
 
 
 @method_decorator(login_required, name='dispatch')
@@ -101,8 +104,6 @@ class ReservationDeleteView(DeleteView):
 
 
 class HotelSearchView(HotelListView):
-    model = Hotel
-    template_name = "hotel_list.html"
 
     def get_queryset(self):
         result = super(HotelSearchView, self).get_queryset()

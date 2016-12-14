@@ -1,9 +1,11 @@
 *.pyc
 .DS_Store
 hotel/.idea/**
+hotel/media/**
 .idea/**
 db.sqlite3
 tmp
+
 hotel/potrzebuje.txt
 
 
