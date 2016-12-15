@@ -45,13 +45,8 @@ class ReservationForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['photo', 'name', 'addres', 'telephone']
-
-        widgets = {
-            'addres': forms.Textarea(attrs={'cols': 20, 'rows': 5}),
-            'telephone': forms.Textarea(attrs={'cols': 20, 'rows': 5}),
-        }
-
+        fields = ['photo', 'name']
+"""
     def clean(self, **kwargs):
         cleaned_data = super(ProfileEditForm, self).clean()
 
@@ -62,4 +57,6 @@ class ProfileEditForm(forms.ModelForm):
                 'digits and up to 15 digits'))
 
         return cleaned_data
+"""
+
 

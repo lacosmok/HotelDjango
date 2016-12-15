@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from . import models
 
 
@@ -41,6 +41,7 @@ class AddressAdmin(admin.ModelAdmin):
     list_display = ('street', 'nr', 'city')
 
 admin.site.unregister(User)
+admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
 admin.site.register(models.Reservation)
 admin.site.register(models.Telephone)

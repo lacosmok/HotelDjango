@@ -6,13 +6,14 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.http import HttpResponse
 
-
-from .models import Hotel, Reservation, Room, Profile
+from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
 
 import operator
 
+PAGINATE_BY = 2
 
 @method_decorator(login_required, name='dispatch')
 class ReservationCreateView(CreateView):
@@ -40,10 +41,9 @@ class ReservationCreateView(CreateView):
         return context
 
 
-
 class HotelListView(ListView):
-    model = Hotel
     template_name = "hotel_list.html"
+    paginate_by = PAGINATE_BY
 
     def get_context_data(self, **kwargs):
         context = super(HotelListView, self).get_context_data(**kwargs)
@@ -57,6 +57,7 @@ class HotelListView(ListView):
 class RoomListView(ListView):
     model = Room
     template_name = "room_list.html"
+    paginate_by = PAGINATE_BY
 
     def get_context_data(self, **kwargs):
         context = super(RoomListView, self).get_context_data(**kwargs)
@@ -108,7 +109,22 @@ class ProfileEditView(UpdateView):
     template_name = 'registration_form.html'
     form_class = ProfileEditForm
 
-
+    def get_context_data(self, **kwargs):
+        context = super(ProfileEditView, self).get_context_data(**kwargs)
+        profile = Profile.objects.create(user=self.user)
+        if not profile.addres:
+            address = Address.objects.create()
+            profile.addres = address
+        else:
+            address = Address.objects.get(pk = profile.addres.pk)
+        if not profile.telephone:
+            telephone = Telephone.objects.create()
+            profile.telephone = telephone
+        else:
+            telephone = Telephone.objects.get(pk=profile.telephone.pk)
+        context['addres'] = address
+        context['telephone'] = telephone
+        return context
 
 
 class ReservationDeleteView(DeleteView):

@@ -11,17 +11,14 @@
     <div class="col-sm-8 text-left">
         <form id="product-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-
+        {%  for form in forms %}
             {{form.media}}
             {{form|bootstrap}}
+            {% endfor %}
 
             <div class="form-group text-right">
 
-                {% if reservation_create %}
-                      <button class="btn btn-info" type="submit" value="save" name="save" >Make Reservation</button>
-                    {% else %}
-                    <button class="btn btn-info" type="submit" value="save" name="save" >Create User</button>
-                {% endif %}
+                      <button class="btn btn-info" type="submit" value="save" name="save" >Edit Profile</button>
             </div>
 
         </form>

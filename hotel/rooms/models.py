@@ -6,15 +6,16 @@ from django.contrib.auth.models import User
 
 
 def profile_directory_path(instance, filename):
-    return 'profile_{0}/{1}'.format(instance.id, filename)
+    return 'profile_{0}/thumbnail.{1}'.format(instance.id, filename[-3:])
 
 
 def hotel_directory_path(instance, filename):
-    return 'hotel_{0}/{1}'.format(instance.id, filename)
+    return 'hotel_{0}/hotel.{1}'.format(instance.id, filename[-3:])
 
 
 def room_directory_path(instance, filename):
-    return 'hotel_{0}/room_{1}'.format(instance.hotel.id, instance.id)
+    return 'hotel_{0}/room_{1}.{2}'.format(instance.hotel.id, instance.id,
+                                           filename[-3:])
 
 
 class Address(models.Model):
@@ -29,6 +30,9 @@ class Address(models.Model):
 class Telephone(models.Model):
     nr = models.IntegerField(default=0,
                              verbose_name="telephone number")
+
+    def __str__(self):
+        return str(self.nr)
 
 
 class Profile(models.Model):

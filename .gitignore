@@ -5,7 +5,7 @@ hotel/media/**
 .idea/**
 db.sqlite3
 tmp
-
+hotel/hotel/settings.py
 hotel/potrzebuje.txt
 
 
