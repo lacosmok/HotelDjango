@@ -10,7 +10,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <h2>name, address, etc.</h2>
+                    <div class="row">
+                     <div class="col-xs-6 col-md-3">
+                    <a href="https://cdn3.iconfinder.com/data/icons/line-icons-medium-version/64/photo-512.png" class="thumbnail">
+                     <img src="..." alt="...">
+                    </a>
+                    </div>
+                    <div class="col-sm-8">
+                        <ul class="list-group">
+                        <li class="list-group-item">Name: {{ profile.name }}</li>
+                        <li class="list-group-item">Address: {{ profile.addres }}</li>
+                        <li class="list-group-item">Telephone: {{ profile.telephone }}</li>
+                            </ul>
+                        <a href="{% url 'user-profile-edit' profile.pk  %}"
+                           class="glyphicon glyphicon-pencil" role="button">Edit</a>
+                    </div>
                     <tr>
                     <h1>My reservations</h1>
                     {% for reservation in reservations %}

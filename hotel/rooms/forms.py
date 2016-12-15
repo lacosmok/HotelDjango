@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django import forms
-from .models import Reservation
+from .models import Reservation, Profile, Telephone, Address
 from django.core.exceptions import ValidationError
-from django.contrib.admin import widgets
+
 
 
 class UserForm(forms.ModelForm):
@@ -23,15 +23,13 @@ class ReservationForm(forms.ModelForm):
 
         start = cleaned_data.get('start_date')
         end = cleaned_data.get('end_date')
-        delta = end - start
         if start >= end:
             self.add_error(None, ValidationError(
                 "Start date must be earlier than end date of reservation"))
         reservation_query = Reservation.objects.filter(room__pk=self.room_pk)
         for reservation in reservation_query:
 
-            if (start + delta) < reservation.end_date and \
-                            (end - delta) > reservation.start_date:
+            if start <= reservation.end_date and reservation.start_date <= end:
                 self.add_error(None, ValidationError(
                     'Room is already reserved from ' + str(
                         reservation.start_date) +
@@ -42,3 +40,26 @@ class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = ["end_date", "start_date"]
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['photo', 'name', 'addres', 'telephone']
+
+        widgets = {
+            'addres': forms.Textarea(attrs={'cols': 20, 'rows': 5}),
+            'telephone': forms.Textarea(attrs={'cols': 20, 'rows': 5}),
+        }
+
+    def clean(self, **kwargs):
+        cleaned_data = super(ProfileEditForm, self).clean()
+
+        telephone = cleaned_data.get('telephone')
+        if 15 > len(telephone) > 9:
+            self.add_error(None, ValidationError(
+                'Telephone number must be longer than 9 ' +
+                'digits and up to 15 digits'))
+
+        return cleaned_data
+

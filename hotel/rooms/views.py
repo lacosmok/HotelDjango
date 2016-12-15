@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
@@ -10,7 +9,7 @@ from django.db.models import Q
 
 
 from .models import Hotel, Reservation, Room, Profile
-from .forms import UserForm, ReservationForm
+from .forms import UserForm, ReservationForm, ProfileEditForm
 
 import operator
 
@@ -41,7 +40,7 @@ class ReservationCreateView(CreateView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
+
 class HotelListView(ListView):
     model = Hotel
     template_name = "hotel_list.html"
@@ -102,6 +101,14 @@ class ProfileView(TemplateView):
             user=self.request.user)
         context['reservations'] = Reservation.objects.filter(user=self.request.user)
         return context
+
+
+class ProfileEditView(UpdateView):
+    model = Profile
+    template_name = 'registration_form.html'
+    form_class = ProfileEditForm
+
+
 
 
 class ReservationDeleteView(DeleteView):
