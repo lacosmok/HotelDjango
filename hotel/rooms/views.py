@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
@@ -104,29 +104,6 @@ class ProfileView(TemplateView):
         return context
 
 
-class ProfileEditView(UpdateView):
-    model = Profile
-    template_name = 'registration_form.html'
-    form_class = ProfileEditForm
-
-    def get_context_data(self, **kwargs):
-        context = super(ProfileEditView, self).get_context_data(**kwargs)
-        profile = Profile.objects.create(user=self.user)
-        if not profile.addres:
-            address = Address.objects.create()
-            profile.addres = address
-        else:
-            address = Address.objects.get(pk = profile.addres.pk)
-        if not profile.telephone:
-            telephone = Telephone.objects.create()
-            profile.telephone = telephone
-        else:
-            telephone = Telephone.objects.get(pk=profile.telephone.pk)
-        context['addres'] = address
-        context['telephone'] = telephone
-        return context
-
-
 class ReservationDeleteView(DeleteView):
     model = Reservation
     success_url = reverse_lazy('user-profile')
@@ -147,3 +124,6 @@ class HotelSearchView(HotelListView):
                        (Q(description__icontains=q) for q in query_list))
             )
         return result
+
+
+
