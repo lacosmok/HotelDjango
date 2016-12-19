@@ -4,6 +4,7 @@ from .models import Reservation, Profile, Telephone, Address
 from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
 from django.forms import BaseInlineFormSet
+from functools import partial
 
 
 class UserForm(forms.ModelForm):
@@ -15,13 +16,13 @@ class UserForm(forms.ModelForm):
 
 
 class ReservationForm(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         self.room_pk = kwargs.pop('room_pk', None)
         super(ReservationForm, self).__init__(*args, **kwargs)
 
     def clean(self, **kwargs):
         cleaned_data = super(ReservationForm, self).clean()
-
         start = cleaned_data.get('start_date')
         end = cleaned_data.get('end_date')
         if start >= end:
@@ -29,7 +30,6 @@ class ReservationForm(forms.ModelForm):
                 "Start date must be earlier than end date of reservation"))
         reservation_query = Reservation.objects.filter(room__pk=self.room_pk)
         for reservation in reservation_query:
-
             if start <= reservation.end_date and reservation.start_date <= end:
                 self.add_error(None, ValidationError(
                     'Room is already reserved from ' + str(
@@ -40,25 +40,26 @@ class ReservationForm(forms.ModelForm):
 
     class Meta:
         model = Reservation
-        fields = ["end_date", "start_date"]
+        fields = ["start_date", "end_date"]
 
 
-class ProfileEditForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['photo', 'name']
-"""
+class ProfileEditForm(forms.Form):
+    photo = forms.ImageField()
+    name = forms.CharField()
+    street = forms.CharField()
+    city = forms.CharField()
+    street_nr = forms.CharField()
+    telephone = forms.IntegerField()
+
     def clean(self, **kwargs):
         cleaned_data = super(ProfileEditForm, self).clean()
-
         telephone = cleaned_data.get('telephone')
-        if 15 > len(telephone) > 9:
+        if 15 > len(str(telephone)) > 9:
             self.add_error(None, ValidationError(
                 'Telephone number must be longer than 9 ' +
                 'digits and up to 15 digits'))
 
         return cleaned_data
-"""
 
 
 

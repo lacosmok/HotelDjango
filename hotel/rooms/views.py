@@ -104,6 +104,31 @@ class ProfileView(TemplateView):
         return context
 
 
+class ProfileEditView(View):
+    form_class = ProfileEditForm
+    template_name = 'registration_form.html'
+    success_url = reverse_lazy('user_profile.html')
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            profile = Profile.objects.get(
+                user=self.request.user)
+            profile.photo = form.cleaned_data['photo']
+            profile.name = form.cleaned_data['name']
+            profile.addres.street = form.cleaned_data['street']
+            profile.addres.nr = form.cleaned_data['nr']
+            profile.addres.city = form.cleaned_data['city']
+            profile.telephone.nr = form.cleaned_data['telephone']
+            profile.save()
+        return HttpResponseRedirect(reverse_lazy('user-profile'))
+
+
 class ReservationDeleteView(DeleteView):
     model = Reservation
     success_url = reverse_lazy('user-profile')
@@ -124,6 +149,8 @@ class HotelSearchView(HotelListView):
                        (Q(description__icontains=q) for q in query_list))
             )
         return result
+
+
 
 
 

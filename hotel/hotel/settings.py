@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'bootstrap3',
+    'bootstrapform',
+    'restframework',
     'rooms',
     'login',
-    'django_extensions',
-    'bootstrapform'
 ]
 
 MIDDLEWARE = [
@@ -129,4 +131,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
+
+# REST Framework
 

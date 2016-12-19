@@ -1,48 +1,31 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
+    <link rel="stylesheet" href="{% static 'js/functions.js' %}">
 
 {% block content %}
 
 
-
 <div class="container">
     <div class="col-sm-8 text-left">
-  <h1>Add Recipe</h1>
-        <form action="." method="post">
+        <form id="product-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div>
-                {{ form.as_p }}
+
+
+            {{form.as_p}}
+
+            <div class="form-group text-right">
+
+                {% if reservation_create %}
+                      <button class="btn btn-info" type="submit" value="save" name="save" >Make Reservation</button>
+                    {% else %}
+                    <button class="btn btn-info" type="submit" value="save" name="save" >Create User</button>
+                {% endif %}
             </div>
-            <fieldset>
-                <legend>Recipe Ingredient</legend>
-                {{ address_form.management_form }}
-                {{ address_form.non_form_errors }}
-                {% for form in ingredient_form %}
-                    {{ form.id }}
-                    <div class="inline {{ address_form.prefix }}">
-                        {{ form.street.errors }}
-                        {{ form.street.label_tag }}
-                        {{ form.street }}
-                    </div>
-                {% endfor %}
-            </fieldset>
-            <fieldset>
-                <legend>Recipe instruction</legend>
-                {{ telephone_form.management_form }}
-                {{ telephone_form.non_form_errors }}
-                {% for form in telephone_form %}
-                    {{ form.id }}
-                    <div class="inline {{ telephone_form.prefix }}">
-                        {{ form.nr.errors }}
-                        {{ form.nr.label_tag }}
-                        {{ form.nr }}
-                    </div>
-                {% endfor %}
-            </fieldset>
-            <input type="submit" value="Add recipe" class="submit" />
         </form>
+
+
     </div>
 </div>
-{% endblock %}html>
+{% endblock %}

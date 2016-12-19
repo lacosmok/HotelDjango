@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load i18n %}
 {% block content %}
 
     <div class="row">
@@ -12,9 +11,9 @@
                 <tbody>
                     <div class="row">
                      <div class="col-xs-6 col-md-3">
-                    <a href="https://cdn3.iconfinder.com/data/icons/line-icons-medium-version/64/photo-512.png" class="thumbnail">
-                     <img src="..." alt="...">
-                    </a>
+                    <div class="thumbnail">
+                     <img src="{{ profile.photo.url }}" alt="...">
+                    </div>
                     </div>
                     <div class="col-sm-8">
                         <ul class="list-group">
@@ -22,6 +21,8 @@
                         <li class="list-group-item">Address: {{ profile.addres }}</li>
                         <li class="list-group-item">Telephone: {{ profile.telephone }}</li>
                             </ul>
+                        <a href="{% url 'edit-user-profile' %}">Edit Profile</a>
+
                     </div>
                     <tr>
                     <h1>My reservations</h1>

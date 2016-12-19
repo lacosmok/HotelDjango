@@ -14,7 +14,7 @@
                     {% for room in room_list %}
                                 <td>
                                 <h1>{{ room.name }}</h1></br>
-                                     <img src={{ room.photo.url }} /></br>
+                                     <img src={{ room.photo.url }} class="thumbnail" width="300px" /></br>
                                 {{ room.description }} </br>
                                 <a href="{% url 'reservation-create' room.pk  %}" class="btn btn-default" role="button">Make Reservation</a>
                             </td>
