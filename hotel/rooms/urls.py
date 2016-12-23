@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^reservations/(?P<pk>[0-9]+)/$',
         views.ReservationDeleteView.as_view(), name='reservation-delete'),
     # REST framework urls
-    url(r'api/$', views.HotelViewSet.as_view(), name='json-hotel-list')
+    url(r'api/$', views.HotelView.as_view(), name='rest-hotel-list'),
+    url(r'^/api/rooms/(?P<pk>[0-9]+)/reservation/$',
+        views.ReservationCreateAPIView.as_view(), name='rest-reservation-create'),
 ]

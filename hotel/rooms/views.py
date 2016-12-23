@@ -7,16 +7,22 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from rest_framework import viewsets, views
+from rest_framework import viewsets, views, generics
 from rest_framework.response import Response
+from rest_framework.renderers import TemplateHTMLRenderer
+
 
 from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
-from .serializers import HotelSerializer
+from .serializers import HotelSerializer, ReservationSerializer
 
 import operator
 
 PAGINATE_BY = 2
+
+class ReservationCreateAPIView(generics.CreateAPIView):
+    serializer_class = ReservationSerializer
+
 
 @method_decorator(login_required, name='dispatch')
 class ReservationCreateView(CreateView):
@@ -158,19 +164,15 @@ class HotelSearchView(HotelListView):
 
 
 
-class HotelViewSet(views.APIView):
+class HotelView(views.APIView):
     """
-    A simple ViewSet for listing or retrieving users.
+     A view that returns a templated HTML representation of hotel list.
     """
-    def list(self, request):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'rest/hotel_list.html'
+
+
+    def get(self, request):
         queryset = Hotel.objects.all()
-        serializer = HotelSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def retrieve(self, request, pk=None):
-        queryset = Hotel.objects.all()
-        serializer = HotelSerializer()
-        return Response(serializer.data)
-
-
+        return Response({'hotels': queryset})
 
