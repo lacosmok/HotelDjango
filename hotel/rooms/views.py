@@ -84,7 +84,10 @@ class UserFormView(View):
             password = form.cleaned_data["password"]
             user.set_password(password)
             user.save()
-            Profile.objects.create(user=user)
+            address = Address.objects.create()
+            telephone = Telephone.objects.create()
+            Profile.objects.create(user=user, addres=address,
+                                   telephone=telephone)
         user = authenticate(username=username, password=password)
 
         if user is not None:
@@ -107,7 +110,6 @@ class ProfileView(TemplateView):
 class ProfileEditView(View):
     form_class = ProfileEditForm
     template_name = 'registration_form.html'
-    success_url = reverse_lazy('user_profile.html')
 
     def get(self, request):
         form = self.form_class(None)
@@ -119,14 +121,19 @@ class ProfileEditView(View):
         if form.is_valid():
             profile = Profile.objects.get(
                 user=self.request.user)
-            profile.photo = form.cleaned_data['photo']
+            # profile.photo = form.cleaned_data['photo']
             profile.name = form.cleaned_data['name']
-            profile.addres.street = form.cleaned_data['street']
-            profile.addres.nr = form.cleaned_data['nr']
-            profile.addres.city = form.cleaned_data['city']
-            profile.telephone.nr = form.cleaned_data['telephone']
+            telephone = profile.telephone
+            telephone.nr = form.cleaned_data['telephone']
+            address = profile.addres
+            address.street = form.cleaned_data['street']
+            address.nr = form.cleaned_data['street_nr']
+            address.city = form.cleaned_data['city']
+            address.save()
             profile.save()
-        return HttpResponseRedirect(reverse_lazy('user-profile'))
+            telephone.save()
+        return redirect('user-profile')
+
 
 
 class ReservationDeleteView(DeleteView):

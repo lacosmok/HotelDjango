@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'bootstrap3',
     'bootstrapform',
-    'restframework',
     'rooms',
     'login',
 ]
