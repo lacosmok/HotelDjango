@@ -7,9 +7,12 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseRedirect
+from rest_framework import viewsets, views
+from rest_framework.response import Response
 
 from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
+from .serializers import HotelSerializer
 
 import operator
 
@@ -151,6 +154,23 @@ class HotelSearchView(HotelListView):
         return result
 
 
+
+
+
+
+class HotelViewSet(views.APIView):
+    """
+    A simple ViewSet for listing or retrieving users.
+    """
+    def list(self, request):
+        queryset = Hotel.objects.all()
+        serializer = HotelSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Hotel.objects.all()
+        serializer = HotelSerializer()
+        return Response(serializer.data)
 
 
 
