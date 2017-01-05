@@ -16,6 +16,10 @@ class UserForm(forms.ModelForm):
 
 
 class ReservationForm(forms.ModelForm):
+    start_date = forms.DateField(
+        widget=forms.DateInput(attrs={'class': 'date'}))
+    end_date = forms.DateField(
+        widget=forms.DateInput(attrs={'class': 'date'}))
 
     def __init__(self, *args, **kwargs):
         self.room_pk = kwargs.pop('room_pk', None)
@@ -44,11 +48,11 @@ class ReservationForm(forms.ModelForm):
 
 
 class ProfileEditForm(forms.Form):
-    photo = forms.ImageField()
+    # photo = forms.ImageField()
     name = forms.CharField()
     street = forms.CharField()
     city = forms.CharField()
-    street_nr = forms.CharField()
+    street_nr = forms.IntegerField()
     telephone = forms.IntegerField()
 
     def clean(self, **kwargs):
@@ -58,8 +62,8 @@ class ProfileEditForm(forms.Form):
             self.add_error(None, ValidationError(
                 'Telephone number must be longer than 9 ' +
                 'digits and up to 15 digits'))
-
         return cleaned_data
+
 
 
 
