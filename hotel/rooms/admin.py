@@ -40,10 +40,13 @@ class AddressAdmin(admin.ModelAdmin):
     inlines = [HotelInline]
     list_display = ('street', 'nr', 'city')
 
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'start_date', 'end_date', 'room')
+
 admin.site.unregister(User)
 admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
-admin.site.register(models.Reservation)
+admin.site.register(models.Reservation, ReservationAdmin)
 admin.site.register(models.Telephone)
 admin.site.register(models.Hotel, HotelAdmin)
 admin.site.register(models.Profile)

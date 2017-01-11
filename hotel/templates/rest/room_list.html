@@ -1,0 +1,62 @@
+{% extends 'rest/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load rest_framework %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+
+                    {% for room in rooms %}
+                        <td>
+                            <h1>{{ room.name }}</h1></br>
+                            <!--<img src={{ room.photo.url }} class="thumbnail" width="300px"/></br> -->
+                            {{ room.description }} </br>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                                    data-target="#myModal">
+                                Make reservation
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">Reservate a room</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form  method="/" id="reservationForm">
+
+                                                <p>Start Date: <input type="text" class="form-control date"
+                                                                      id="start_date"></p>
+                                                <p>End Date: <input type="text" class="form-control date" id="end_date">
+                                                </p>
+                                                <input type="hidden" value="{{ room.pk }}" id="room">
+                                                <input type="submit" value="Save" class="btn" id="reservation">
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

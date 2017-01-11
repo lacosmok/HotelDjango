@@ -11,14 +11,15 @@ from rest_framework import viewsets, views, generics
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
 
-
 from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
-from .serializers import HotelSerializer, ReservationSerializer
+from .serializers import HotelSerializer, ReservationSerializer, RoomSerializer
 
 import operator
+from datetime import datetime
 
 PAGINATE_BY = 2
+
 
 class ReservationCreateAPIView(generics.CreateAPIView):
     serializer_class = ReservationSerializer
@@ -144,14 +145,12 @@ class ProfileEditView(View):
         return redirect('user-profile')
 
 
-
 class ReservationDeleteView(DeleteView):
     model = Reservation
     success_url = reverse_lazy('user-profile')
 
 
 class HotelSearchView(HotelListView):
-
     def get_queryset(self):
         result = super(HotelSearchView, self).get_queryset()
 
@@ -167,19 +166,46 @@ class HotelSearchView(HotelListView):
         return result
 
 
+# REST Framework views
 
 
+class HotelListAPIView(views.APIView):
 
-
-class HotelView(views.APIView):
-    """
-     A view that returns a templated HTML representation of hotel list.
-    """
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'rest/hotel_list.html'
 
-
     def get(self, request):
         queryset = Hotel.objects.all()
-        return Response({'hotels': queryset})
+        serializer = HotelSerializer(queryset, many=True)
+        return Response({'hotels': serializer.data})
 
+
+class RoomListAPIView(views.APIView):
+    """
+     A view that returns a templated HTML representation of room list.
+    """
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'rest/room_list.html'
+
+    def get(self, request, pk):
+        queryset = Room.objects.filter(hotel__pk=self.kwargs["pk"])
+        serializer = RoomSerializer(queryset, many=True)
+        return Response({'rooms': serializer.data})
+
+    def post(self, request, pk):
+        request.data['start_date'] = datetime.strptime(request.data.get('start_date', None), '%Y-%m-%d').date()
+        request.data['end_date'] = datetime.strptime(request.data['end_date'], '%Y-%m-%d').date()
+        request.data['user'] = self.request.user.pk
+        serializer = ReservationSerializer(data=request.data)
+        if not serializer.is_valid():
+            serializer.is_valid(raise_exception=True)
+            queryset = Room.objects.filter(hotel__pk=self.kwargs["pk"])
+            serializer = RoomSerializer(queryset, many=True)
+            return Response({'rooms': serializer.data})
+        serializer.save()
+        return redirect('user-profile')
+
+
+class ReservationCreateAPIView(views.APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'rest/registration_form.html'

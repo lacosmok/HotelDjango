@@ -24,7 +24,7 @@
                                 <h1>{{ hotel.name }}</h1></br>
                                     <img src={{ hotel.photo.url }} class="thumbnail" width="300px" /></br>
                                 {{ hotel.description }} </br>
-                                <a href="{% url 'room-list' hotel.pk  %}" class="btn btn-default" role="button">Rooms</a>
+                                <a href="{% url 'rest-room-list' pk=hotel.pk  %}" class="btn btn-default" role="button">Rooms</a>
                             </td>
                     </tr>
                     {% endfor %}
