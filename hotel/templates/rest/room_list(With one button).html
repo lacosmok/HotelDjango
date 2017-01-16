@@ -1,0 +1,79 @@
+{% extends 'rest/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load rest_framework %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                    data-target="#myModal">
+                Make reservation
+            </button>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+
+                    {% for room in rooms %}
+                        <td>
+                            <h1>{{ room.name }}</h1></br>
+                            <!--<img src={{ room.photo.url }} class="thumbnail" width="300px"/></br> -->
+                            {{ room.description }} </br>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Reservate a room</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="reservationForm">
+
+                        <p>Start Date: <input type="text" class="form-control date"
+                                              id="start_date"></p>
+                        <p>End Date: <input type="text" class="form-control date" id="end_date">
+                        </p>
+                        <p>Room <select id="room" name="roomSelect" class="form-control">
+                            <option selected="selected">blank</option>
+                            <script>
+                                html = "";
+                                 {% for room in rooms %}
+                                    html += "<option value=" + {{ room.pk }} + ">" +
+                                        "Room: {{ room.name }} "+
+                                        "desc: {{ room.description }}" + "</option>"
+                                document.getElementById("room").innerHTML = html;
+                                {%  endfor %}
+                            </script>
+                        </select>
+                        </p>
+                        <input type="submit" value="Save" class="btn">
+                        {% if form.errors %}
+                            <h1>ERRORRRRRR</h1>
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/reservation_modal.js' %}"></script>
+{% endblock %}

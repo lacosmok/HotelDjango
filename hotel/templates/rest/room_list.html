@@ -34,14 +34,17 @@
                                             <h4 class="modal-title" id="myModalLabel">Reservate a room</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form  method="/" id="reservationForm">
+                                            <form id="reservationForm">
 
                                                 <p>Start Date: <input type="text" class="form-control date"
                                                                       id="start_date"></p>
                                                 <p>End Date: <input type="text" class="form-control date" id="end_date">
                                                 </p>
                                                 <input type="hidden" value="{{ room.pk }}" id="room">
-                                                <input type="submit" value="Save" class="btn" id="reservation">
+                                                <input type="submit" value="Save" class="btn">
+                                                {% if form.errors %}
+                                                    <h1>ERRORRRRRR</h1>
+                                                {% endif %}
                                             </form>
                                         </div>
                                         <div class="modal-footer">
@@ -58,5 +61,5 @@
             </table>
         </div>
     </div>
-
+<script src="{% static 'js/reservation_modal.js' %}"></script>
 {% endblock %}

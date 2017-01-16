@@ -102,7 +102,7 @@ class UserFormView(View):
 
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return redirect('rest-hotel-list')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -203,9 +203,9 @@ class RoomListAPIView(views.APIView):
             serializer = RoomSerializer(queryset, many=True)
             return Response({'rooms': serializer.data})
         serializer.save()
-        return redirect('user-profile')
+        return Response({'rooms': serializer.data})
 
 
-class ReservationCreateAPIView(views.APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'rest/registration_form.html'
+
+
+
