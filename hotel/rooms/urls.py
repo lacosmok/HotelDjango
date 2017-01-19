@@ -2,6 +2,11 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    # New urls with rest
+    url(r'^drf/$', views.ApiHotelListView.as_view(), name='drf-index'),
+    url(r'^drf/hotels/(?P<pk>[0-9]+)/rooms/$',
+        views.ApiRoomListView.as_view(), name='drf-room-list'),
+    # Old urls
     url(r'^$', views.HotelListView.as_view(), name='index'),
     url(r'^search/$', views.HotelSearchView.as_view(), name='hotel-search'),
     url(r'^hotels/(?P<pk>[0-9]+)/rooms/$',
@@ -16,8 +21,6 @@ urlpatterns = [
         views.ReservationDeleteView.as_view(), name='reservation-delete'),
     # REST framework urls
     url(r'api/$', views.HotelListAPIView.as_view(), name='rest-hotel-list'),
-    url(r'^api/hotels/(?P<pk>[0-9]+)/rooms/$',
+    url(r'^api/hotels/(?P<pk>[0-9]+)/rooms$',
         views.RoomListAPIView.as_view(), name='rest-room-list'),
-    url(r'^api/rooms/(?P<pk>[0-9]+)/reservation/$',
-        views.ReservationCreateAPIView.as_view(), name='rest-reservation-create'),
 ]

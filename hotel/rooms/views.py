@@ -20,6 +20,19 @@ from datetime import datetime
 
 PAGINATE_BY = 2
 
+# New views
+
+
+class ApiHotelListView(TemplateView):
+    template_name = "rest/hotel_list.html"
+
+
+class ApiRoomListView(TemplateView):
+    template_name = "rest/room_list.html"
+
+
+# Old views
+
 
 class ReservationCreateAPIView(generics.CreateAPIView):
     serializer_class = ReservationSerializer
@@ -171,9 +184,6 @@ class HotelSearchView(HotelListView):
 
 class HotelListAPIView(views.APIView):
 
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'rest/hotel_list.html'
-
     def get(self, request):
         queryset = Hotel.objects.all()
         serializer = HotelSerializer(queryset, many=True)
@@ -184,11 +194,9 @@ class RoomListAPIView(views.APIView):
     """
      A view that returns a templated HTML representation of room list.
     """
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'rest/room_list.html'
 
     def get(self, request, pk):
-        queryset = Room.objects.filter(hotel__pk=self.kwargs["pk"])
+        queryset = Room.objects.filter(hotel__pk=pk)
         serializer = RoomSerializer(queryset, many=True)
         return Response({'rooms': serializer.data})
 
@@ -199,8 +207,6 @@ class RoomListAPIView(views.APIView):
         serializer = ReservationSerializer(data=request.data)
         if not serializer.is_valid():
             serializer.is_valid(raise_exception=True)
-            queryset = Room.objects.filter(hotel__pk=self.kwargs["pk"])
-            serializer = RoomSerializer(queryset, many=True)
             return Response({'rooms': serializer.data})
         serializer.save()
         return Response({'rooms': serializer.data})

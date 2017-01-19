@@ -50,9 +50,9 @@
 <div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
+      <p><a href="{% url 'drf-index'  %}">Django Rest framework</a></p>
+      <p><a href="{% url 'rest-hotel-list'  %}">API</a></p>
+      <p><a href="{% url 'index'  %}">Static Main Page</a></p>
     </div>
     <div class="col-sm-8 text-left">
       	{% block content %}

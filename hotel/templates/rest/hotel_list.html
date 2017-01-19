@@ -1,38 +1,31 @@
 {% extends 'rest/base.html' %}
+{% load static %}
 {% block content %}
 
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-hover" >
+            <table class="table table-hover">
                 <thead>
                 <tr>
                 </tr>
                 </thead>
                 <tbody>
-    <form id="searchform" action="{% url 'hotel-search' %}" method="get" accept-charset="utf-8">
-      <button class="searchbutton" type="submit">
-        <i class="fa fa-search">submit</i>
-      </button>
-      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
-    </form>
+                <form id="searchform" action="{% url 'hotel-search' %}" method="get" accept-charset="utf-8">
+                    <button class="searchbutton" type="submit">
+                        <i class="search">submit</i>
+                    </button>
+                    <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+                </form>
 
 
-
-                    <tr>
-                    {% for hotel in hotels %}
-                                <td>
-                                <h1>{{ hotel.name }}</h1></br>
-                                    <img src={{ hotel.photo.url }} class="thumbnail" width="300px" /></br>
-                                {{ hotel.description }} </br>
-                                <a href="{% url 'rest-room-list' pk=hotel.pk  %}" class="btn btn-default" role="button">Rooms</a>
-                            </td>
-                    </tr>
-                    {% endfor %}
+                <tr >
+                    <td id="hotels"></td>
+                </tr>
 
 
                 </tbody>
             </table>
         </div>
     </div>
-
+    <script src="{% static 'js/hotels.js' %}"></script>
 {% endblock %}

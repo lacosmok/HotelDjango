@@ -35,3 +35,23 @@ class RoomSerializer(serializers.ModelSerializer):
         model = models.Room
         fields = ('name', 'photo', 'description', 'pk')
 
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Address
+        fields = ('street', 'nr', 'city')
+
+
+class TelephoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Telephone
+        fields = 'nr'
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    telephone = TelephoneSerializer
+    addres = AddressSerializer
+
+    class Meta:
+        model = models.Profile
+        fields = ('user', 'photo', 'name', 'addres', 'telephone')
