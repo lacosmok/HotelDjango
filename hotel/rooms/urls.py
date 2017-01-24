@@ -27,5 +27,7 @@ urlpatterns = [
     url(r'^api/profile/$', views.ProfileApiView.as_view(), name='rest-user-profile'),
     url(r'^api/reservations/(?P<pk>[0-9]+)/delete/$',
         views.ReservationDestroyApiView.as_view(), name='rest-reservation-delete'),
+    url(r'^api/login/$',
+        views.LoginAPIView.as_view(), name='rest-login'),
 
 ]

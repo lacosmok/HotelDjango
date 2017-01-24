@@ -1,5 +1,6 @@
 from django.views.generic import ListView, TemplateView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.utils.decorators import method_decorator
@@ -7,6 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseRedirect
+
 from rest_framework import viewsets, views, generics, status
 from rest_framework.mixins import DestroyModelMixin
 from rest_framework.response import Response
@@ -14,7 +16,8 @@ from rest_framework.renderers import TemplateHTMLRenderer
 
 from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
-from .serializers import HotelSerializer, ReservationSerializer, RoomSerializer, ProfileSerializer
+from .serializers import HotelSerializer, ReservationSerializer, \
+    RoomSerializer, ProfileSerializer, LoginSerializer
 
 import operator
 from datetime import datetime
@@ -233,3 +236,31 @@ class ReservationDestroyApiView(generics.DestroyAPIView):
         reservation = Reservation.objects.get(pk=pk)
         reservation.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class LoginAPIView(views.APIView):
+
+    def post(self, request, format=None):
+        serializer = LoginSerializer(data=request.data)
+
+        if serializer.is_valid():
+            username = serializer.data.get('username')
+            password = serializer.data.get('password')
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+
+
+        if user is not None:
+            login(request, user)
+            return redirect('rest-hotel-list')
+
+    def get(self, request, format=None):
+        data_dic = {"Error":"GET not supported for this command"}
+        return Response(data_dic, status=status.HTTP_400_BAD_REQUEST)
+
+
+

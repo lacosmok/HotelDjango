@@ -41,8 +41,12 @@
                     <li><a href="{% url 'logout' %}"> 'Logout' </a></li>
                 {% else %}
                     <li><a href="{% url 'register-user' %}">Register</a></li>
-                    <li><a href="{% url 'user-profile' %}"><span class="glyphicon glyphicon-log-in">
-        </span> Login</a></li>
+                    <button type="button" class="btn" data-toggle="modal"
+                            data-target="#exampleModal">
+                        Login
+                    </button>
+
+                    <
                 {% endif %}
             </ul>
         </div>
@@ -52,9 +56,9 @@
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-sm-2 sidenav">
-      <p><a href="{% url 'drf-index'  %}">Django Rest framework</a></p>
-      <p><a href="{% url 'rest-hotel-list'  %}">API</a></p>
-      <p><a href="{% url 'index'  %}">Static Main Page</a></p>
+            <p><a href="{% url 'drf-index' %}">Django Rest framework</a></p>
+            <p><a href="{% url 'rest-hotel-list' %}">API</a></p>
+            <p><a href="{% url 'index' %}">Static Main Page</a></p>
         </div>
         <div class="col-sm-8 text-left">
             {% block content %}
@@ -90,5 +94,34 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div id="errors"></div>
+                        <p>Username:<input type="text" class="form-control"
+                                              id="username"></p>
+                        <p>Password: <input type="password" class="form-control" id="password">
+                        </p>
+
+                        <input type="submit" value="Login" class="btn btn-primary">
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>
