@@ -10,14 +10,15 @@
                 </thead>
                 <tbody>
     <form id="searchform" action="{% url 'hotel-search' %}" method="get" accept-charset="utf-8">
-      <button class="searchbutton" type="submit">
-        <i class="fa fa-search">submit</i>
+
+      <button class="searchbutton btn" type="submit">
+        <i class="fa fa-search ">submit</i>
       </button>
-      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+        <div class="col-xs-6">
+      <input class="searchfield form-control" id="searchbox" name="q" type="text" placeholder="Search">
+        </div>
     </form>
-
-
-
+    
                     <tr>
                     {% for hotel in hotel_list %}
                                 <td>

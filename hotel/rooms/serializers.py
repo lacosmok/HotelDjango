@@ -8,10 +8,22 @@ class HotelSerializer(serializers.ModelSerializer):
         fields = ('pk', 'photo', 'name', 'address', 'description')
 
 
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Room
+        fields = ('name', 'photo', 'description', 'pk')
+
+
 class ReservationSerializer(serializers.ModelSerializer):
+    room_name = serializers.SerializerMethodField('let_room_name')
+
+    def let_room_name(self, res):
+        room = models.Room.objects.get(pk=res.room.pk)
+        return str(room.name)
+
     class Meta:
         model = models.Reservation
-        fields = ('start_date', 'end_date', 'room', 'user')
+        fields = ('pk', 'start_date', 'end_date', 'room', 'user', 'room_name')
 
     def validate(self, data):
         if data['start_date'] > data['end_date']:
@@ -28,12 +40,6 @@ class ReservationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return models.Reservation.objects.create(**validated_data)
-
-
-class RoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Room
-        fields = ('name', 'photo', 'description', 'pk')
 
 
 class AddressSerializer(serializers.ModelSerializer):

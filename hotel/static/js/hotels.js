@@ -12,7 +12,6 @@ $(document).ready(function () {
     })
         .done(function (data) {
             hotels = data.hotels
-            console.log("success", hotels[0]);
             html = "";
             for (var i = 0, len = hotels.length; i < len; i++) {
                 html +=
@@ -23,7 +22,6 @@ $(document).ready(function () {
                     " class=\"btn btn-default\" role=\"button\">Rooms</a>"
                 document.getElementById("hotels").innerHTML = html;
             }
-            console.log(html)
         })
         .fail(function (data) {
             console.log("error", data);

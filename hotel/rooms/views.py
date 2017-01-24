@@ -7,18 +7,20 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from rest_framework import viewsets, views, generics
+from rest_framework import viewsets, views, generics, status
+from rest_framework.mixins import DestroyModelMixin
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
 
 from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
-from .serializers import HotelSerializer, ReservationSerializer, RoomSerializer
+from .serializers import HotelSerializer, ReservationSerializer, RoomSerializer, ProfileSerializer
 
 import operator
 from datetime import datetime
 
 PAGINATE_BY = 2
+
 
 # New views
 
@@ -27,8 +29,14 @@ class ApiHotelListView(TemplateView):
     template_name = "rest/hotel_list.html"
 
 
+@method_decorator(login_required, name='dispatch')
 class ApiRoomListView(TemplateView):
     template_name = "rest/room_list.html"
+
+
+@method_decorator(login_required, name='dispatch')
+class ApiProfileView(TemplateView):
+    template_name = "rest/user_profile.html"
 
 
 # Old views
@@ -183,7 +191,6 @@ class HotelSearchView(HotelListView):
 
 
 class HotelListAPIView(views.APIView):
-
     def get(self, request):
         queryset = Hotel.objects.all()
         serializer = HotelSerializer(queryset, many=True)
@@ -207,11 +214,22 @@ class RoomListAPIView(views.APIView):
         serializer = ReservationSerializer(data=request.data)
         if not serializer.is_valid():
             serializer.is_valid(raise_exception=True)
-            return Response({'rooms': serializer.data})
+            raise ValidationError
         serializer.save()
         return Response({'rooms': serializer.data})
 
 
+class ProfileApiView(views.APIView, DestroyModelMixin):
+    def get(self, request):
+        profile = Profile.objects.get(user=self.request.user)
+        profile_serializer = ProfileSerializer(profile)
+        queryset = Reservation.objects.filter(user=self.request.user)
+        serializer = ReservationSerializer(queryset, many=True)
+        return Response({'reservations': serializer.data, "profile": profile_serializer.data})
 
 
-
+class ReservationDestroyApiView(generics.DestroyAPIView):
+    def delete(self, request,pk):
+        reservation = Reservation.objects.get(pk=pk)
+        reservation.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
