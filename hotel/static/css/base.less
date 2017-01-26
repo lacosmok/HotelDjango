@@ -1,0 +1,78 @@
+@defaultMargins: 20px;
+@elementsColor: #f1f1f1;
+@textColor: #ffffff;
+.box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
+  -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+  box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+
+.text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+  text-shadow: @string;
+}
+
+.border-radius (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.row {
+  .content {
+    height: 450px;
+  }
+
+}
+
+.sidenav {
+  padding-top: @defaultMargins;
+  background-color: @elementsColor;
+  height: 100%;
+}
+
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+
+  .row {
+    .content {
+      height: auto;
+    }
+
+  }
+}
+
+.btn {
+  margin-top: 7px;
+}
+
+.container-fluid {
+  .well {
+    margin: @defaultMargins;
+    .border-radius(20px);
+    .box-shadow(5px, 5px, 5px, 0.3);
+    .btn {
+      .box-shadow(3px, 3px, 3px, 0.2);
+    }
+    .thumbnail {
+      width: 300px;
+    }
+    .p {
+      color: @textColor;
+    }
+
+  }
+}

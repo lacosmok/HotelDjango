@@ -13,6 +13,9 @@ from rest_framework import viewsets, views, generics, status
 from rest_framework.mixins import DestroyModelMixin
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 
 from .models import Hotel, Reservation, Room, Profile, Address, Telephone
 from .forms import UserForm, ReservationForm, ProfileEditForm
@@ -200,10 +203,22 @@ class HotelListAPIView(views.APIView):
         return Response({'hotels': serializer.data})
 
 
+class HotelListSearchAPIView(views.APIView):
+    def get(self, request):
+        query = request.data["q"]
+        queryset = Hotel.objects.all()
+        serializer = HotelSerializer(queryset, many=True)
+        return Response({'hotels': serializer.data})
+
+
+
+@method_decorator(login_required, name='dispatch')
 class RoomListAPIView(views.APIView):
     """
      A view that returns a templated HTML representation of room list.
     """
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated, permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request, pk):
         queryset = Room.objects.filter(hotel__pk=pk)
@@ -221,7 +236,7 @@ class RoomListAPIView(views.APIView):
         serializer.save()
         return Response({'rooms': serializer.data})
 
-
+@method_decorator(login_required, name='dispatch')
 class ProfileApiView(views.APIView, DestroyModelMixin):
     def get(self, request):
         profile = Profile.objects.get(user=self.request.user)
@@ -230,7 +245,7 @@ class ProfileApiView(views.APIView, DestroyModelMixin):
         serializer = ReservationSerializer(queryset, many=True)
         return Response({'reservations': serializer.data, "profile": profile_serializer.data})
 
-
+@method_decorator(login_required, name='dispatch')
 class ReservationDestroyApiView(generics.DestroyAPIView):
     def delete(self, request,pk):
         reservation = Reservation.objects.get(pk=pk)
@@ -258,9 +273,6 @@ class LoginAPIView(views.APIView):
             login(request, user)
             return redirect('rest-hotel-list')
 
-    def get(self, request, format=None):
-        data_dic = {"Error":"GET not supported for this command"}
-        return Response(data_dic, status=status.HTTP_400_BAD_REQUEST)
 
 
 

@@ -6,9 +6,10 @@ $("#loginForm").submit(function (event) {
     event.preventDefault();
     var csrftoken = $.cookie('csrftoken');
     var data = {
-        username: $('#username').val(),
-        password: $('#password').val(),
+        username: this['username'].value,
+        password: this['password'].value,
     };
+    console.log(this.username.value)
     $.ajax({
         type: "POST",
         url: "/api/login/",
@@ -18,19 +19,25 @@ $("#loginForm").submit(function (event) {
         beforeSend: function (xhr, settings) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
-    }).then(function (resp) {
-                    console.log('done')
-                    return resp
-                },
-                function (resp) {
-                    var html = "";
-                    html += "<div class=\"alert alert-danger\" role=\"alert\" >" +
-                        resp.responseText + "</div>"
-                    document.getElementById("errors").innerHTML = html;
-                    return (resp)
-                })
-            .always(function (resp) {
-                console.log(resp, "always")
-                location.reload();
-            });
+    })
+        .then(function (resp) {
+                console.log('done')
+                var html = "";
+                html+="<li><a href='/login/'> 'Logout' </a></li>"
+                $( "#login" ).empty();
+                document.getElementById("login").innerHTML = html;
+                 $('#exampleModal').modal('toggle');
+                return resp
+            },
+            function (resp) {
+                var html = "";
+                html += "<div class=\"alert alert-danger\" role=\"alert\" >" +
+                    resp.responseText + "</div>"
+                document.getElementById("errors").innerHTML = html;
+                return (resp)
+            })
+        .always(function (resp) {
+            console.log(resp, "always")
+        });
 })
+

@@ -13,6 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -35,19 +36,12 @@
                 <li><a href="{% url 'drf-index' %}">Hotels</a></li>
                 <li><a href="{% url 'drf-user-profile' %}">Profile</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if request.user.is_authenticated %}
-                    <li><span class="navbar-brand">Hello, {{ request.user.username }}</span></li>
-                    <li><a href="{% url 'logout' %}"> 'Logout' </a></li>
-                {% else %}
-                    <li><a href="{% url 'register-user' %}">Register</a></li>
-                    <button type="button" class="btn" data-toggle="modal"
-                            data-target="#exampleModal">
-                        Login
-                    </button>
-
-                    <
-                {% endif %}
+            <ul class="nav navbar-nav navbar-right login" id="login">
+                <li><a href="{% url 'register-user' %}">Register</a></li>
+                <button type="button" class="btn" data-toggle="modal"
+                        data-target="#exampleModal">
+                    Login
+                </button>
             </ul>
         </div>
     </div>
@@ -59,9 +53,12 @@
             <p><a href="{% url 'drf-index' %}">Django Rest framework</a></p>
             <p><a href="{% url 'rest-hotel-list' %}">API</a></p>
             <p><a href="{% url 'index' %}">Static Main Page</a></p>
+            <button type="button" class="btn btn-secondary" id="checkCookie">
+            </button>
         </div>
         <div class="col-sm-8 text-left">
             {% block content %}
+
             {% endblock %}
             {% if is_paginated %}
                 <ul class="pagination">
@@ -89,11 +86,7 @@
 <footer class="container-fluid text-center">
     <p>Suuuper Stronka </p>
 </footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-<script src="{% static 'js/functions.js' %}"></script>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -110,18 +103,21 @@
                     <form id="loginForm">
                         <div id="errors"></div>
                         <p>Username:<input type="text" class="form-control"
-                                              id="username"></p>
+                                           id="username" name="username"></p>
                         <p>Password: <input type="password" class="form-control" id="password">
                         </p>
 
                         <input type="submit" value="Login" class="btn btn-primary">
                     </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script src="{% static 'js/login.js' %}"></script>
+<script src="{% static 'js/functions.js' %}"></script>
 </body>
 </html>

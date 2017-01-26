@@ -10,7 +10,7 @@ $(document).ready(function () {
 function deleteReservation() {
     $(".destroy").click(function () {
         var csrftoken = $.cookie('csrftoken');
-        var reservation = this.value
+        var reservation = this.value;
         $.ajax({
             type: "DELETE",
             url: "/api/reservations/" + reservation + "/delete/",

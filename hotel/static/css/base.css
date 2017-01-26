@@ -1,32 +1,49 @@
-
 .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-
-.row.content {height: 450px}
-
-.sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-
-footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-
-@media screen and (max-width: 767px) {
-        .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;}
-    }
-
-.btn{
-    margin-top: 7px;
+  margin-bottom: 0;
+  border-radius: 0;
 }
-
+.row .content {
+  height: 450px;
+}
+.sidenav {
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: 100%;
+}
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row .content {
+    height: auto;
+  }
+}
+.btn {
+  margin-top: 7px;
+}
+.container-fluid .well {
+  margin: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+.container-fluid .well .btn {
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+.container-fluid .well .thumbnail {
+  width: 300px;
+}
+.container-fluid .well .p {
+  color: #ffffff;
+}

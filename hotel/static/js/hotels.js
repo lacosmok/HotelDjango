@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function () {
-    var hotels = []
+    var hotels = [];
     $.ajax({
         type: "GET",
         url: "/api/",
@@ -11,15 +11,16 @@ $(document).ready(function () {
         dataType: "json"
     })
         .done(function (data) {
-            hotels = data.hotels
+            hotels = data.hotels;
             html = "";
             for (var i = 0, len = hotels.length; i < len; i++) {
                 html +=
-                    "<img src=" + hotels[i].photo + " class=\"thumbnail\" width=\"300px\" /></br>" +
-                    "Hotel:" + hotels[i].name + "</br>" +
-                    "desc:" + hotels[i].description + "</br>" +
+                    "<div class='col-md-5 well'>"+
+                    "<img src=" + hotels[i].photo + " class=\"thumbnail\" /></br>" +
+                    "<p>Hotel:" + hotels[i].name + "</br>" +
+                    "desc:" + hotels[i].description + "</br></p>" +
                     "<a href='/drf/hotels/"+ hotels[i].pk + "/rooms/' " +
-                    " class=\"btn btn-default\" role=\"button\">Rooms</a>"
+                    " class=\"btn btn-default\" role=\"button\">Rooms</a></div>";
                 document.getElementById("hotels").innerHTML = html;
             }
         })

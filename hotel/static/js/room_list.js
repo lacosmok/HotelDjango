@@ -13,11 +13,12 @@ $(document).ready(function () {
             html = "";
             for (var i = 0, len = rooms.length; i < len; i++) {
                 html +=
+                    "<div class='col-md-5 well'>" +
                     "<img src=" + rooms[i].photo + " class=\"thumbnail\" width=\"300px\" /></br>" +
                     "Room:" + rooms[i].name + "</br>" +
                     "desc:" + rooms[i].description + "</br>" +
                     "<button type=\"button\" class=\"btn btn-primary book \" data-toggle=\"modal\"" +
-                    " data-target=\"#myModal\" data-id=' " + rooms[i].pk + "'> Book a room </button>"
+                    " data-target=\"#myModal\" data-id=' " + rooms[i].pk + "'> Book a room </button></div>"
                 document.getElementById("rooms").innerHTML = html;
             }
         })
@@ -31,18 +32,17 @@ $(document).ready(function () {
         var csrftoken = $.cookie('csrftoken');
         var room = $(".book").data('id');
         var data = {
-            start_date: $('#start_date').val(),
-            end_date: $('#end_date').val(),
-            room: parseInt(room, 10),
+            start_date: this['start_date'].value,
+            end_date: this['end_date'].value,
+            room: parseInt(room, 10)
         };
-        console.log(data.room)
+        console.log(data.room);
         $.ajax({
             type: "POST",
             url: "/api/hotels/" + url[5] + "/rooms/",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
