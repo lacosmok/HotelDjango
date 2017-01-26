@@ -12,15 +12,15 @@ $(document).ready(function () {
     })
         .done(function (data) {
             hotels = data.hotels;
-            html = "";
-            for (var i = 0, len = hotels.length; i < len; i++) {
+            var html = "";
+            for (var i = 0; i < hotels.length; i++) {
                 html +=
-                    "<div class='col-md-5 well'>"+
-                    "<img src=" + hotels[i].photo + " class=\"thumbnail\" /></br>" +
+                    "<div class='col-sm-6'><div class='well margin'>" +
+                    "<img src=" + hotels[i].photo + " class=\"img-thumbnail\" /></br>" +
                     "<p>Hotel:" + hotels[i].name + "</br>" +
                     "desc:" + hotels[i].description + "</br></p>" +
-                    "<a href='/drf/hotels/"+ hotels[i].pk + "/rooms/' " +
-                    " class=\"btn btn-default\" role=\"button\">Rooms</a></div>";
+                    "<a href='/drf/hotels/" + hotels[i].pk + "/rooms/' " +
+                    " class=\"btn btn-default\" role=\"button\">Rooms</a></div></div>";
                 document.getElementById("hotels").innerHTML = html;
             }
         })

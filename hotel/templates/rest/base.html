@@ -36,10 +36,10 @@
                 <li><a href="{% url 'drf-index' %}">Hotels</a></li>
                 <li><a href="{% url 'drf-user-profile' %}">Profile</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right login" id="login">
+            <ul class="nav navbar-nav navbar-right" id="login">
                 <li><a href="{% url 'register-user' %}">Register</a></li>
                 <button type="button" class="btn" data-toggle="modal"
-                        data-target="#exampleModal">
+                        data-target="#exampleModal" value="{{ request.user.is_authenticated }}">
                     Login
                 </button>
             </ul>
@@ -58,34 +58,12 @@
         </div>
         <div class="col-sm-8 text-left">
             {% block content %}
-
             {% endblock %}
-            {% if is_paginated %}
-                <ul class="pagination">
-                {% if page_obj.has_previous %}
-                    <li>
-                        <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
-                    </li>
-                {% endif %}
-                <li class="">
-                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
-                </li>
-                {% if page_obj.has_next %}
-                    <li>
-                        <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
-                    </li>
-                {% endif %}
-            {% endif %}
-            </ul>
-
         </div>
 
     </div>
 </div>
 
-<footer class="container-fluid text-center">
-    <p>Suuuper Stronka </p>
-</footer>
 
 
 <!-- Modal -->

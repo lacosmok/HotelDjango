@@ -5,8 +5,13 @@
 .row .content {
   height: 450px;
 }
+.img-thumbnail {
+  width: 250px;
+  height: 200px;
+  background-size: cover;
+}
 .sidenav {
-  padding-top: 20px;
+  padding-top: 10px;
   background-color: #f1f1f1;
   height: 100%;
 }
@@ -24,11 +29,13 @@ footer {
     height: auto;
   }
 }
+.margin {
+  margin: 10px;
+}
 .btn {
   margin-top: 7px;
 }
 .container-fluid .well {
-  margin: 20px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;

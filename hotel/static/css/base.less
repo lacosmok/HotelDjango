@@ -1,4 +1,4 @@
-@defaultMargins: 20px;
+@defaultMargins: 10px;
 @elementsColor: #f1f1f1;
 @textColor: #ffffff;
 .box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
@@ -28,7 +28,11 @@
   }
 
 }
-
+.img-thumbnail{
+   width:250px;
+   height:200px;
+   background-size:cover;
+}
 .sidenav {
   padding-top: @defaultMargins;
   background-color: @elementsColor;
@@ -54,14 +58,16 @@ footer {
 
   }
 }
-
+.margin{
+  margin: @defaultMargins;
+}
 .btn {
   margin-top: 7px;
 }
 
 .container-fluid {
   .well {
-    margin: @defaultMargins;
+
     .border-radius(20px);
     .box-shadow(5px, 5px, 5px, 0.3);
     .btn {

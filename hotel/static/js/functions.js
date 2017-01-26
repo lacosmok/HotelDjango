@@ -1,14 +1,13 @@
 /**
  * Created by pc on 16.12.16.
 
-});
  */
 
- $(function () {
-     $(".date").datepicker({
-         dateFormat: "yy-mm-dd"
-     });
- })
+$(function () {
+    $(".date").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+})
 
 $(document).ready(function () {
     var buttonStatus = $.cookie("buttonStatus")
@@ -16,7 +15,7 @@ $(document).ready(function () {
         $.cookie("buttonStatus", "false");
     }
     var elem = document.getElementById("checkCookie");
-    elem.innerHTML = ($.cookie("buttonStatus"))
+    elem.innerHTML = ($.cookie("buttonStatus"));
 
 });
 $("#checkCookie").on('click', function () {

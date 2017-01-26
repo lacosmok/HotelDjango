@@ -33,9 +33,9 @@ function getReservations() {
         dataType: "json"
     })
         .done(function (data) {
-            reservations = data.reservations;
-            profile = data.profile;
-            html = "";
+            var reservations = data.reservations;
+            var profile = data.profile;
+            var html = "";
             for (var i = 0, len = reservations.length; i < len; i++) {
                 html +=
                     "Start Date: " + reservations[i].start_date + "</br></<br>" +

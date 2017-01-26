@@ -24,7 +24,7 @@ $("#loginForm").submit(function (event) {
                 console.log('done')
                 var html = "";
                 html+="<li><a href='/login/'> 'Logout' </a></li>"
-                $( "#login" ).empty();
+                $("#login").empty();
                 document.getElementById("login").innerHTML = html;
                  $('#exampleModal').modal('toggle');
                 return resp

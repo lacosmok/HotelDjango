@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    url = document.URL.split("/");
+    var url = document.URL.split("/");
     console.log(url[5])
     $.ajax({
         type: "GET",
@@ -10,15 +10,15 @@ $(document).ready(function () {
         .done(function (data) {
             rooms = data.rooms;
             console.log("success", rooms);
-            html = "";
-            for (var i = 0, len = rooms.length; i < len; i++) {
+            var html = "";
+            for (var i = 0; i < rooms.length; i++) {
                 html +=
-                    "<div class='col-md-5 well'>" +
+                    "<div class='col-sm-6'><div class='well margin'>" +
                     "<img src=" + rooms[i].photo + " class=\"thumbnail\" width=\"300px\" /></br>" +
                     "Room:" + rooms[i].name + "</br>" +
                     "desc:" + rooms[i].description + "</br>" +
                     "<button type=\"button\" class=\"btn btn-primary book \" data-toggle=\"modal\"" +
-                    " data-target=\"#myModal\" data-id=' " + rooms[i].pk + "'> Book a room </button></div>"
+                    " data-target=\"#myModal\" data-id=' " + rooms[i].pk + "'> Book a room </button></div></div>"
                 document.getElementById("rooms").innerHTML = html;
             }
         })
