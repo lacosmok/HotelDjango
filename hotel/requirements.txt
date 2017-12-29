@@ -2,3 +2,4 @@ Django==1.10.3
 django-bootstrap-form==3.2.1
 django_extensions==1.7.5
 django-static-jquery==2.1.4
+pillow==4.3.0
